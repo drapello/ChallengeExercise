@@ -1,9 +1,8 @@
+package com.example.refactor;
+
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
-
-
 
 public class CreateEvents {
 
@@ -12,20 +11,18 @@ public class CreateEvents {
         itemEvent.setWorkbench(workbench);
         itemEvent.setSite(String.valueOf(Site.LAHR));
         System.out.println(startDate.getSecond() + "|" + itemEvent.getWorkbench() + "|" + itemEvent.getQl());
-
     }
 
-    private static void createItemScannedEvents( LocalDateTime startDate, String ql, String workbench) {
+    private static void createItemScannedEvents(LocalDateTime startDate, String ql, String workbench) {
         var itemScannedEvent = new ItemEvent();
         createItemEvent(itemScannedEvent, startDate, ql, workbench);
     }
 
-    private static void createItemDroppedEvents( LocalDateTime startDate, String ql, String workbench, String dropset_id) {
+    private static void createItemDroppedEvents(LocalDateTime startDate, String ql, String workbench, String dropset_id) {
         var itemDroppedEvent = new ItemEvent();
         itemDroppedEvent.setId(dropset_id);
         createItemEvent(itemDroppedEvent, startDate, ql, workbench);
     }
-
 
     private static LocalDateTime createDropset(LocalDateTime startDate, String dropset_id, Type type) {
 
@@ -37,13 +34,13 @@ public class CreateEvents {
 
         for (int j = 0; j < rand; j++) {
             switch (type) {
-                case Type.OK:
+                case OK:
                     ql = RandomValueFixture.ql();
                     workbench = RandomValueFixture.workbench();
                     createItemDroppedEvents(startDate, ql, workbench, dropset_id);
                     createItemScannedEvents(startDate, ql, workbench);
                     break;
-                case Type.SUPERSET:
+                case SUPERSET:
                     for (int i = 0; i < rand; i++) {
                         ql = RandomValueFixture.ql();
                         workbench = RandomValueFixture.workbench();
@@ -51,7 +48,7 @@ public class CreateEvents {
                     }
                     createItemScannedEvents(startDate, ql, workbench);
                     break;
-                case Type.SUBSET:
+                case SUBSET:
                     ql = RandomValueFixture.ql();
                     workbench = RandomValueFixture.workbench();
                     createItemDroppedEvents(startDate, ql, workbench, dropset_id);
@@ -61,7 +58,7 @@ public class CreateEvents {
                         workbench = RandomValueFixture.workbench();
                     }
                     break;
-                case Type.SUPERANDSUBSET:
+                case SUPERANDSUBSET:
                     for (int i = 0; i < rand; i++) {
                         ql = RandomValueFixture.ql();
                         workbench = RandomValueFixture.workbench();
